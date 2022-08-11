@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login and regist</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<script type="text/javascript" src="../static/login/js/jquery-1.11.1.min.js"></script>
+
+	<link href="../static/login/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<script type="text/javascript" src="../static/Convert_Pinyin.js"></script>
+	<script type="text/javascript" src="../static/jquery.form.js"></script>
+
+</head>
+<body>
+
+	<div class="main">
+		<h1>login and regist</h1>
+		<div class="w3_login">
+			<div class="w3_login_module">
+				<div class="module form-module">
+					<div class="toggle">
+						<i class="fa fa-times fa-pencil"></i>
+						<div class="tooltip">change</div>
+					</div>
+					<div class="form" >
+						<h2>acount</h2>
+						<form id="alogin">
+							<input type="text" name="username" placeholder="account" required=" " />
+							<input type="password" name="Password" placeholder="password" required=" " />
+							<input type="button" value="login" onclick="alogin()"/>
+						</form>
+					</div>
+					<div class="form">
+						<h2>create</h2>
+						<form id="aregist">
+							<input type="text" name="username" id="username" placeholder="account" required=" " />
+							<input type="password" name="Password" id="Password" placeholder="password" required=" " />
+							<input type="button" value="regist" onclick="aregist()"/>
+						</form>
+					</div>
+					<div class="cta" ></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		window.localStorage.baseUrl  = 'http://localhost:3000/';
+		$('#wangjimima').click(function(){
+
+		})
+		$('.toggle').click(function(){
+			$(this).children('i').toggleClass('fa-pencil');
+			$('.form').animate({height: "toggle",'padding-top': 'toggle','padding-bottom': 'toggle',opacity: "toggle"}, "slow");
+		});
+
+		var dic = {}
+		var nname = ''
+		function aregist(){
+			if($('#username').val()==''||$('#Password').val()==''){
+				alert("enter full");
+				return
+			}
+			var a = $("#aregist").serializeArray()
+			for(var i in a){
+				var d = a[i]
+				dic[d["name"]]=d["value"]
+			}
+			nname=dic["username"]
+
+			var dic2 = {}
+			dic2["table"]=pinyin.getFullChars("usermanager")
+			dic2["database"]='admin'
+			$.get(window.localStorage.baseUrl+'getdata',dic2,function(data){
+				var arr =  data.data
+				for(var i in arr){
+					var d = arr[i]
+					if (d["username"]==nname) {
+						alert("exist")
+						return
+					}
+				}
+
+				var a = $("#aregist").serializeArray()
+				dic = {}
+				for(var i in a){
+					var d = a[i]
+					dic[d["name"]]=d["value"]
+				}
+				dic["role"]="user"
+				dic["table"]=pinyin.getFullChars("usermanager")
+				dic["database"]='admin'
+				var t = dic
+				$.post(window.localStorage.baseUrl+'savedata',t,function(data){
+					alert('success')
+					location.reload()
+				})
+			})
+		}
+
+		function alogin(){
+			var a = $("#alogin").serializeArray()
+			dic = {}
+			for(var i in a){
+				var d = a[i]
+				dic[d["name"]]=d["value"]
+			}
+			dic["table"]=pinyin.getFullChars("usermanager")
+			dic["database"]='admin'
+			$.get(window.localStorage.baseUrl+'getdata',dic,function(data){
+				var arr =  data.data
+				for(var i in arr){
+					var d = arr[i]
+					if (d["username"]==dic["username"]&&d["Password"]==dic["Password"]) {
+						window.localStorage.nowuser = JSON.stringify(d)
+						window.localStorage.nowinfor=JSON.stringify(d)
+						alert("success")
+							location.href="table.html?show=VideoName、videoIntroduction、VideoFile&add=VideoName、videoIntroduction、VideoFile&fujian=VideoFile&fuwenben=videoIntroduction&name=VideoManagement"
+						return
+					}
+				}
+				alert("error")
+			})
+
+		}
+
+		$.get('/fanyichengzhongwen?name=nice',function(data){
+
+		})
+	</script>
+
+</body>
+</html>

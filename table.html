@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>system</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+
+
+
+<!-- 	<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../static/main/css/animate.css">
+	<link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+-->
+
+<link rel="stylesheet" type="text/css" href="../static/main/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../static/main/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="../static/main/css/bootstrap-select.min.css">
+<script type="text/javascript" src="../static/main/js/bootstrap-select.min.js"></script>
+
+
+
+<link rel="stylesheet" type="text/css" href="../static/main/css/awesome-bootstrap-checkbox.css">
+<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+
+<link rel="stylesheet" type="text/css" href="../static/main/css/select2.css">
+<link rel="stylesheet" type="text/css" href="../static/main/css/style.css">
+<link rel="stylesheet" type="text/css" href="../static/main/css/theme.css">
+<link rel="stylesheet" type="text/css" href="../static/page.css">
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../static/main/js/Chart.min.js"></script>
+<script type="text/javascript" src="../static/main/js/main.js"></script>
+<script type="text/javascript" src="../static/main/js/index.js"></script>
+<script type="text/javascript" src="../static/page.js"></script>
+<script type="text/javascript" src="../static/Convert_Pinyin.js"></script>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="../static/jquery.form.js"></script>
+
+<script type="text/javascript" src="../static/wangEditor.min.js"></script>
+<style type="text/css">
+	#datatable_xs {
+		text-align: center;
+	}
+
+	th {
+		text-align: center;
+	}
+
+	.alert {
+		display: none;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		min-width: 300px;
+		max-width: 600px;
+		transform: translate(-50%, -50%);
+		z-index: 99999;
+		text-align: center;
+		padding: 15px;
+		border-radius: 3px;
+	}
+
+	.alert-success {
+		color: #3c763d;
+		background-color: #dff0d8;
+		border-color: #d6e9c6;
+	}
+
+	.alert-info {
+		color: #31708f;
+		background-color: #d9edf7;
+		border-color: #bce8f1;
+	}
+
+	.alert-warning {
+		color: #8a6d3b;
+		background-color: #fcf8e3;
+		border-color: #faebcc;
+	}
+
+	.alert-danger {
+		color: #a94442;
+		background-color: #f2dede;
+		border-color: #ebccd1;
+	}
+
+	td {
+		text-align: center!important;
+		vertical-align: middle!important;
+	}
+
+	.dataTables_length {
+		display: none!important;
+	}
+
+	.toolbar {
+		border: 1px solid #ccc;
+		width: 100%;
+	}
+
+	.text {
+		border: 1px solid #ccc;
+		width: 100%;
+	}
+
+	.w-e-panel-container {
+		width: 80%!important;
+		margin-left: -100px!important;
+	}
+</style>
+
+</head>
+
+<body class="flat-blue sidebar-collapse">
+	<div class="alert"></div>
+
+	<div class="sidebar">
+		<div class="menu-control toggle-sidebar">
+			<a class="navbar-brand" href="#" class="atitle"></a>
+			<i class="fa fa-bars navicon"></i>
+		</div>
+
+	</div>
+
+	<div class="content-container wrap">
+		<nav class="navbar navbar-default">
+			<div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#"><span class="atitle"></span> list</a>
+					</div>
+
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12">
+					<span class="page-title red"><h2><span class="atitle"></span> list</h2>
+				</span>
+			</div>
+			<button id="tianjiadianbu" class="btn btn-primary btn-sm">
+				add <span class="atitle"></span>
+			</button>
+			<button id="aserach" class="btn btn-primary btn-sm">
+				search <span class="atitle"></span>
+			</button>
+
+			<button id="aAddBtn" style="display: none" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addUserModal">
+				show
+			</button>
+		</div>
+
+		<div class="row">
+			<div class="row" id="aSearchDiv" style="display: none;">
+
+				<div class="col-sm-4">
+					<button style="border: 1px solid " class="btn" id="aSearchAct">search</button>
+					<button style="border: 1px solid " class="btn" id="hideAct">hide</button>
+				</div>
+			</div>
+			<table class="table display" id="datatable_xs" style="border: 1px solid RGBA(62, 70, 81, 1);width: 100%">
+				<thead>
+					<tr id="headTr">
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<div class="form-horizontal" role="form" id="form_data" style="margin: 20px;">
+	<div class="modal fadein" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<span class="atitle"></span>info
+					</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="add" role="form">
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">close
+					</button>
+					<button type="button" id="subMitBtn" class="btn btn-primary">
+						submit
+					</button><span id="tip"> </span>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
+</div>
+
+<footer class="footer">
+	<span><i class="fa fa-copyright"></i> system </span>
+</footer>
+<script type="text/javascript" src="public_left.js"></script>
+
+<script type="application/javascript">
+	$('.modal-dialog').css('width', '80%')
+	$('.modal-dialog').css('margin-left', '50px')
+    $('#bga').show()
+
+	var title = ""
+	if (getQueryString("name")) {
+		title=getQueryString('name')
+	}
+	setTimeout(function(){
+		loadIndex(title)
+	},750)
+
+	$('.atitle').each(function(i, o) {
+		$(o).text(title)
+	})
+	$('#atitle').val(title + 'list')
+	var showString = ''
+	if (getQueryString("show")) {
+		showString=getQueryString('show')+'、operation'
+	}
+	var addString = ''
+	if (getQueryString("add")) {
+		addString=getQueryString('add')
+	}
+	var fujian = ''
+	if (getQueryString("fujian")) {
+		fujian=getQueryString('fujian')
+	}
+
+	var keyword = ""
+	var richTxt=''
+	if (getQueryString("richTxt")) {
+		richTxt=getQueryString('richTxt')
+	}
+
+	var trichTxtEditor
+	var prompt = function(message, style, time) {
+		style = (style === undefined) ? 'alert-success' : style;
+		time = (time === undefined) ? 1200 : time;
+		$('<div>')
+		.appendTo('body')
+		.addClass('alert ' + style)
+		.html(message)
+		.show()
+		.delay(time)
+		.fadeOut();
+	};
+
+			
+			var success_prompt = function(message, time) {
+				prompt(message, 'alert-success', time);
+			};
+
+			
+			var fail_prompt = function(message, time) {
+				prompt(message, 'alert-danger', time);
+			};
+
+			
+			var warning_prompt = function(message, time) {
+				prompt(message, 'alert-warning', time);
+			};
+
+			
+			var info_prompt = function(message, time) {
+				prompt(message, 'alert-info', time);
+			};
+
+			$('#YongYouZhe').val(window.localStorage.nowname)
+
+			$('#subMitBtn').click(function() {
+
+				var a = $("#add").serializeArray()
+				dic = {}
+				for(var i in a) {
+					var d = a[i]
+					dic[d["name"]] = d["value"]
+				}
+				if(richTxt != '') {
+					var akey = pinyin.getFullChars(richTxt)
+					dic[akey] = trichTxtEditor.txt.html()
+				}
+				dic["table"] = pinyin.getFullChars(title)
+				dic["database"] = 'app'
+				var aurl = window.localStorage.baseUrl+'savedata'
+				if(isbianji == true) {
+					dic['id'] = tdata['id']
+
+					aurl = window.localStorage.baseUrl+'updatedata'
+				}
+				$.post(aurl, dic, function(data) {
+					$('#add')[0].reset();
+					$('#closeBtn').click()
+					success_prompt('operationsuccess', 750)
+
+					$("#datatable_xs").dataTable()._fnAjaxUpdate();
+
+				})
+
+			})
+
+
+			function actionFunction(data) {
+				$.get(window.localStorage.baseUrl+'deldata', {
+					"id": data.id,
+					database: 'app',
+					table: pinyin.getFullChars(title),
+				}, function(data) {
+					success_prompt(data.msg, 750)
+					$("#datatable_xs").dataTable()._fnAjaxUpdate();
+				})
+			}
+			$('#tianjiadianbu').click(function() {
+				isbianji = false
+				$('#aAddBtn').click()
+			})
+			var isbianji = false
+			var tdata
+
+			function bianji(data) {
+				tdata = data
+				$('#tianjiadianbu').click()
+
+				$('#add input').each(function(i, o) {
+					if($(o).attr('type') == 'file') {
+
+						return true
+					}
+
+					$(o).val(data[$(o).attr('name')])
+
+				})
+				$('#add select').each(function(i, o) {
+					if($(o).attr('type') == 'file') {
+
+						return true
+					}
+
+					$(o).val(data[$(o).attr('name')])
+
+				})
+				if(richTxt != '') {
+					// alert(data[pinyin.getFullChars(richTxt)])
+					// debugger
+					trichTxtEditor.txt.html(data[pinyin.getFullChars(richTxt)])
+
+				}
+				isbianji = true
+			}
+
+		
+
+			var arr = showString.split('、')
+			var string = ''
+			var barr = []
+
+			var arr2 = addString.split('、')
+
+			for(var i in arr2) {
+				if(arr2[i] == 'operation') {
+
+				} else {
+					if(arr2[i] == fujian) {
+						$('#add').append('<div class="form-group">' +
+							'<label for="user_id" class="col-sm-3 control-label">' + arr2[i] + '</label>' +
+							'<div class="col-sm-9">' +
+							'<input type="file" class="form-control" id="' + pinyin.getFullChars(arr2[i]) + '" name="the_file" >' +
+							'<input type="text" class="form-control" name="' + pinyin.getFullChars(arr2[i]) + '" style="display:none">' +
+
+							'</div>' +
+							'</div>')
+
+						$('#' + pinyin.getFullChars(arr2[i])).change(function() {
+							var tname = $(this).attr('id')
+							var options  = {	
+			url:window.localStorage.baseUrl+'uploadfile',  
+			type:'post',
+			beforeSend:function(xhr){
+
+			},	
+			success:function(data)	
+			{   
+				// 　　　　　　	alert(data.msg)
+				data=data
+				$('input').each(function(i, o) {
+					if($(o).attr('name') == tname) {
+						$(o).val(data.path)
+					}
+				})
+			},
+
+			complete:function(xhr){
+
+			},
+			error: function(xhr,status,msg){
+
+			}}
+
+			$("#add").ajaxSubmit(options);
+		})
+
+					} else if(arr2[i] == richTxt) {
+						$('#add').append('<div id="' + pinyin.getFullChars(arr2[i]) + '1" class="toolbar"></div>')
+						$('#add').append('<div class="form-group">' +
+							'<label for="user_id" class="col-sm-3 control-label">' + arr2[i] + '</label>' +
+							'<div class="col-sm-9">' +
+							'<div class="text" id="' + pinyin.getFullChars(arr2[i]) + '2" name="' + pinyin.getFullChars(arr2[i]) + '2">' +
+							'</div>' +
+							'</div>' +
+							'</div>')
+						var E = window.wangEditor
+
+						trichTxtEditor = new E('#' + pinyin.getFullChars(arr2[i]) + '1', '#' + pinyin.getFullChars(arr2[i]) + '2')
+						
+						trichTxtEditor.customConfig.menus = [
+						'head',
+						'bold',
+						'italic',
+						'image',
+						'head',  
+						'bold',  
+						'fontSize',  
+						'fontName',  
+						'italic',  
+						'underline',  
+						'strikeThrough',  
+						'foreColor',  
+						'backColor',  
+						'link',  
+						'list',  
+						'justify',  
+						'quote',  
+						'emoticon',  
+						'image', 
+						'table', 
+						'video', 
+						'code', 
+						'undo', 
+						'redo' 
+						]
+
+						trichTxtEditor.create()
+
+
+					}
+					
+			
+					else {
+						$('#add').append('<div class="form-group">' +
+							'<label for="user_id" class="col-sm-3 control-label">' + arr2[i] + '</label>' +
+							'<div class="col-sm-9">' +
+							'<input type="text" class="form-control" id="' + pinyin.getFullChars(arr2[i]) + '" name="' + pinyin.getFullChars(arr2[i]) + '" placeholder="enter ' + arr2[i] + '">' +
+							'</div>' +
+							'</div>')
+					}
+
+				}
+			}
+
+			for(var i in arr) {
+				i = parseInt(i)
+				if (arr[i]=='operation') {
+					continue
+				}
+				if(arr[i].indexOf('time') != -1) {
+					$('#aSearchDiv').prepend('<div class="col-sm-4">' +
+						'<div class="form-group">' +
+						'	<label for="user_id" class="col-sm-3 control-label">' + arr[i] + '</label>' +
+						'	<div class="col-sm-9">' +
+						'		<input type="date" class="form-control" id="RiQi"  name="' + pinyin.getFullChars(arr[i]) + '" placeholder="">' +
+						'	</div>' +
+						'</div>' +
+						'</div>')
+				} 
+
+
+				else {
+					$('#aSearchDiv').prepend('<div class="col-sm-4">' +
+						'<div class="form-group">' +
+						'	<label for="user_id" class="col-sm-3 control-label">' + arr[i] + '</label>' +
+						'	<div class="col-sm-9">' +
+						'		<input type="text" class="form-control" id="RiQi"  name="' + pinyin.getFullChars(arr[i]) + '" placeholder="">' +
+						'	</div>' +
+						'</div>' +
+						'</div>')
+				}
+
+
+			}
+
+
+			for(var i in arr) {
+
+			
+
+				// <i class='fa fa-arrow-up'></i>
+				if(arr[i] == "operation") {
+					string = string + '<th>' + arr[i] + '</th>'
+					barr.push({
+						"render": function(data, type, row) {
+							var html = "<a href='javascript:void(0);' onclick='actionFunction(" + JSON.stringify(row) + ")'  class='up btn btn-default btn-xs'> del</a>" +
+							"<a href='javascript:void(0);' onclick='bianji(" + JSON.stringify(row) + ")'  class='up btn btn-default btn-xs'> edit</a>"
+							return html;
+						}
+					})
+					continue
+				}
+				if(arr[i] == fujian) {
+					string = string + '<th>' + arr[i] + '</th>'
+					barr.push({
+						"render": function(data, type, row) {
+							var html = "<a href='" + row[pinyin.getFullChars(fujian)] + "'>file</a>"
+							return html;
+						}
+					})
+					continue
+				}
+
+				string = string + '<th>' + arr[i] + '</th>'
+				barr.push({
+					'data': pinyin.getFullChars(arr[i])
+				})
+			}
+
+			$('#headTr').append(string)
+			var param = {
+				database: 'app',
+				table: pinyin.getFullChars(title)
+
+			}
+
+
+			function getcha() {
+				param = {
+					database: 'app',
+					table: pinyin.getFullChars(title)
+
+				}
+				$('#aSearchDiv input').each(function(i, o) {
+					param[$(o).attr('name')] = $(o).val()
+					if($(o).val() == '') {
+						delete param[$(o).attr('name')]
+					}
+				})
+				$('#aSearchDiv select').each(function(i, o) {
+					param[$(o).attr('name')] = $(o).val()
+					if($(o).val() == '') {
+						delete param[$(o).attr('name')]
+					}
+				})
+
+			}
+			function cometo() {
+				
+				$('#datatable_xs').DataTable({
+					'sScrollX':true,
+					'bAutoWidth':true,
+					
+					"processing": true,
+					"searching": false,
+					"serverSide": false,
+					"ajax": {
+						'type': 'post',
+						data: param,
+						"url": window.localStorage.baseUrl+"getdatabykey2",
+					},
+					"columns": barr
+				});
+			}
+			getcha()
+			cometo()
+
+			$('#aSearchAct').click(function() {
+				getcha()
+
+				$("#datatable_xs").dataTable().fnSettings().ajax.data = param
+				$("#datatable_xs").dataTable()._fnAjaxUpdate();
+
+			})
+			if (window.localStorage.role=="user") {
+				
+			}
+			$('#hideAct').click(function(){
+				$('#aSearchDiv').hide(500)
+				$('#aserach').show(500)
+
+			})
+			$('#aserach').click(function(){
+				$('#aSearchDiv').show(500)
+				$('#aserach').hide(500)
+			})
+
+
+		</script>
+	</body>
+
+	</html>
